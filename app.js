@@ -11,6 +11,7 @@ app.get('/', function(req, res) {
 	     req.connection.remoteAddress || 
 	     req.socket.remoteAddress ||
 	     req.connection.socket.remoteAddress;
+	console.log(req.headers);
     res.json({ ipaddress: ip, language: req.headers["accept-language"], software: req.headers["user-agent"] });
 });
 
