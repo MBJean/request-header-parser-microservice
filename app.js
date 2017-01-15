@@ -7,7 +7,11 @@ var app = express();
 app.set('port', process.env.PORT || 8080);
 
 app.get('/', function(req, res) {
-    res.json({ ipaddress: req.headers["host"], language: req.headers["accept-language"], software: req.headers["user-agent"] });
+	var ip = req.headers['x-forwarded-for'] || 
+	     req.connection.remoteAddress || 
+	     req.socket.remoteAddress ||
+	     req.connection.socket.remoteAddress;
+    res.json({ ipaddress: ip, language: req.headers["accept-language"], software: req.headers["user-agent"] });
 });
 
 app.listen(app.get('port'), function() {
